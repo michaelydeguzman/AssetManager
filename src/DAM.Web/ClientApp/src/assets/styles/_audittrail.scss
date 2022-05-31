@@ -1,0 +1,119 @@
+.dam-layout.page-layout {
+	background-color: #f0f4f7 !important;
+
+	.audit-trail-container {
+		.audit-header {
+			padding: 12px 20px;
+			//box-shadow: 5px 0px 5px #000000;
+			margin-left: -8px;
+			background-color: #fff;
+			h2 {
+				margin: 0px;
+				color: #28144b;
+			}
+		}
+		.audit-body {
+			margin-top: 18px;
+			padding: 18px;
+
+			.ant-table {
+				box-shadow: 0px 0px 5px #000000;
+			}
+
+			.react-resizable {
+				position: relative;
+				background-clip: padding-box;
+			}
+
+			.react-resizable-handle {
+				position: absolute;
+				right: -5px;
+				bottom: 0;
+				z-index: 1;
+				width: 10px;
+				height: 100%;
+				cursor: col-resize;
+			}
+
+			.reload-container {
+				display: flex;
+				width: 100%;
+				justify-content: flex-end;
+				padding-right: 8px;
+				margin-bottom: 16px;
+			}
+
+			.table-container {
+				overflow-x: auto;
+			}
+
+			.ant-table-wrapper {
+				.ant-table-content {
+					table {
+						width: 100% !important;
+					}
+					.ant-table-cell-ellipsis {
+						white-space: normal !important;
+					}
+
+					.table-header-sorter {
+						color: #28144b;
+					}
+
+					.ant-table-thead > tr > th {
+						color: #28144b;
+					}
+					.ant-table-tbody {
+						color: #28144b;
+					}
+				}
+			}
+
+			// .pagination-container {
+			// 	padding: 20px 0px;
+			// 	display: flex;
+			// 	align-items: center;
+			// 	justify-content: center;
+
+			// 	.ant-pagination-item-active {
+			// 		border-color: $primary;
+			// 	}
+
+			// 	.ant-pagination-item-active a,
+			// 	.ant-pagination-item a:hover {
+			// 		color: $primary;
+			// 	}
+
+			// 	.ant-pagination-item:focus,
+			// 	.ant-pagination-item:hover {
+			// 		opacity: 0.5;
+			// 		border: 1px solid $primary !important;
+			// 		color: $primary;
+			// 	}
+
+			// 	.ant-pagination-prev:not(.ant-pagination-disabled),
+			// 	.ant-pagination-next:not(.ant-pagination-disabled) {
+			// 		.ant-pagination-item-link:hover {
+			// 			opacity: 0.5;
+			// 			border: 1px solid $primary !important;
+			// 			color: $primary;
+			// 		}
+			// 	}
+			// }
+		}
+		.audit-trail-search {
+			max-width: 250px;
+		}
+		.audit-trail-search-button {
+			margin-left: 5px;
+			margin-right: 30px;
+			color: $primary;
+			background: none;
+			border: 2px solid;
+		}
+		.audit-trail-reload {
+			float: right;
+			margin-right: 15px;
+		}
+	}
+}

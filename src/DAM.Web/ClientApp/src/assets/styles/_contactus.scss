@@ -1,0 +1,66 @@
+@import url(https://assets.freshservice.com/widget/freshwidget.css);
+
+.section {
+	&.one {
+		font-family: 'Poppins', sans-serif;
+		display: flex;
+		width: 100%;
+		float: left;
+		background: #fff;
+		min-height: 350px;
+		align-items: center;
+	}
+	&.two {
+		font-family: 'Poppins', sans-serif;
+		display: block;
+		width: 100%;
+		float: left;
+		.title {
+			font-size: 1.6em;
+			padding: 9px 15px 0 15px;
+			color: #333;
+			font-weight: bolder;
+		}
+	}
+}
+.container {
+	width: 100%;
+	max-width: 1000px;
+	margin: 0px auto;
+	padding: 50px 0px;
+}
+.contactcard {
+	width: 33.33%;
+	float: left;
+	display: block;
+	.title {
+		font-size: 24px;
+		color: #333;
+		font-weight: bold;
+	}
+	.desciption {
+		color: $primary;
+		font-size: 18px;
+		font-weight: bolder;
+	}
+
+	.inside {
+		padding: 20px;
+		margin: 10px;
+		border-radius: 0px 0px 50px 15px;
+		transition: box-shadow 0.7s;
+		svg {
+			color: $primary;
+			margin-bottom: 1rem;
+		}
+		&:hover {
+			box-shadow: 0px 0px 10px 0px $primary;
+		}
+	}
+}
+
+@media screen and (max-width: 767px) {
+	.contactcard {
+		width: 100%;
+	}
+}

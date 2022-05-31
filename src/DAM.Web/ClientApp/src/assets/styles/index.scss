@@ -1,0 +1,102 @@
+.layout {
+	background-color: $secondary;
+	.content {
+		background-color: $secondary;
+		.sub-layout {
+			position: relative;
+			overflow: hidden;
+			margin-left: 0;
+
+			@media (max-width: 768px) {
+				margin-left: 0px;
+			}
+
+			.sub-layout-content {
+				// background-color: $secondary;
+				background-color: #f0f4f7;
+				padding: 60px 0px 24px 0px;
+				min-height: calc(100vh - 60px);
+				position: relative;
+			}
+		}
+	}
+}
+
+.assets-carousel-controls {
+	margin: 0 auto;
+	text-align: center;
+
+	> div {
+		padding-top: 20px;
+		display: flex;
+		flex-flow: row wrap;
+		justify-content: center;
+		align-items: center;
+		font-size: 1rem;
+		color: #444;
+
+		svg {
+			font-size: 1rem;
+
+			&:hover,
+			&:focus {
+				color: #000;
+			}
+		}
+	}
+}
+
+// .tab-panel {
+// 	margin-top: 10px !important;
+
+// 	.ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+// 		color: $secondary;
+// 	}
+// }
+
+.badge-collection {
+	color: $secondary;
+}
+// styles for d365 layout only
+.layout.dynamics {
+	.sider {
+		display: none;
+		margin-top: 0px;
+	}
+
+	.content {
+		.header {
+			display: none;
+		}
+
+		.sub-layout {
+			margin-left: 0px !important;
+
+			.sub-layout-content {
+				padding: 0px !important;
+				height: 100vh;
+				overflow: auto;
+			}
+
+			.footer {
+				display: none;
+			}
+		}
+	}
+}
+
+.editProfile-container {
+	@media (max-width: 768px) {
+		flex-direction: column;
+	}
+
+	.ant-form-item-label {
+		@media (max-width: 768px) {
+			text-align: left;
+		}
+	}
+}
+
+.approver-level-header {
+	font-weight: 500;
+}

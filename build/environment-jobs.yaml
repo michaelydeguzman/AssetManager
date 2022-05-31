@@ -1,0 +1,39 @@
+parameters:
+       azureSubscriptionName: ''
+       resourceGroupName: ''
+       resourceBase: ''
+       environment: '' 
+jobs:
+   - deployment: 'Deploy_To_Environment'
+     environment: '${{ parameters.environment }}' 
+     variables: {
+        envPrefix: '${{parameters.resourceBase}}'
+     }
+     pool:
+        name: Azure Pipelines
+        vmImage: 'windows-latest'
+     strategy:
+       runOnce:
+         deploy:
+           steps:
+           - download: current
+             artifact: 'drop'
+           - task: AzureResourceGroupDeployment@2 
+             displayName: '${{ parameters.resourceBase }}'
+             inputs:
+               azureSubscription: '${{ parameters.azureSubscriptionName }}'
+               resourceGroupName: '${{ parameters.resourceGroupName }}'
+               csmFile: '$(Pipeline.Workspace)/drop/ArmTemplates/Infrastructure.json'
+               overrideParameters: -envPrefix $(envPrefix) -rgname ${{ parameters.resourceGroupName }}
+           - task: ARM Outputs@5
+             inputs:
+               ConnectedServiceNameARM: '${{ parameters.azureSubscriptionName }}'
+               resourceGroupName: '${{ parameters.resourceGroupName }}'
+               prefix: 'out'
+               whenLastDeploymentIsFailed: 'fail'
+           - task: AzureRmWebAppDeployment@4
+             displayName: 'Brand Manager Web Release'
+             inputs:
+               azureSubscription: '${{ parameters.azureSubscriptionName }}' 
+               WebAppName: $(outwebName) 
+               Package: $(Pipeline.Workspace)/drop/src.zip

@@ -1,0 +1,84 @@
+@import './variables';
+@import './antdVariables';
+@import './button';
+@import './approvals';
+@import './archive';
+@import './audittrail';
+@import './components';
+@import './contactus';
+@import './footer';
+@import './header';
+@import './home';
+@import './login';
+@import './notfound';
+@import './notification';
+@import './sider';
+@import './index';
+@import './_projects';
+
+#root {
+	height: inherit;
+}
+
+// search
+.ant-input-search {
+	min-width: 200px;
+	border-radius: 4px;
+
+	.ant-input-suffix {
+		.ant-input-search-icon {
+			display: none;
+		}
+	}
+}
+
+.ant-input-affix-wrapper-focused {
+	border: 1px solid $primary;
+	box-shadow: 0 0 0 2px #d8d6dd;
+}
+.ant-input-affix-wrapper:hover {
+	border: 1px solid $primary;
+}
+
+// modal
+.ant-modal {
+	.ant-modal-body {
+		padding-bottom: 20px;
+	}
+}
+
+// input
+.ant-input {
+	border-radius: 4px;
+	&[disabled] {
+		color: rgba(0, 0, 0, 0.7);
+	}
+}
+
+::selection {
+	background: $primary;
+}
+
+html {
+	--antd-wave-shadow-color: $primary;
+}
+
+.fade-in {
+	animation: fade-in 1s ease-in-out;
+}
+
+@keyframes fade-in {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+.ant-drawer-body {
+	padding: 24px 0px;
+}
+
+.pointer {
+	cursor: pointer;
+}

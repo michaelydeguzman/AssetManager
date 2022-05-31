@@ -1,0 +1,34 @@
+footer.footer {
+	height: 60px;
+	margin: 0px;
+	padding: 0px;
+	background: $header-color;
+	border-color: transparent;
+
+	> div {
+		height: 60px;
+	}
+
+	.ant-typography {
+		color: #fff;
+		opacity: 0.8;
+		a {
+			color: #fff;
+		}
+	}
+	$button-color: white;
+	a .contact-us {
+		color: $primary;
+		font-weight: 500;
+		background-color: $button-color;
+		border-radius: 7px;
+		border: 2px solid $button-color;
+		&:active,
+		&:hover {
+			color: $button-color !important;
+			background-color: darken($button-color, 28) !important;
+			border: 2px solid darken($button-color, 10);
+			border-radius: 7px;
+		}
+	}
+}

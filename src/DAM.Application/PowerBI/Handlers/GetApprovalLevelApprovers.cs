@@ -1,0 +1,34 @@
+using DAM.Persistence;
+using System;
+using Microsoft.Extensions.Configuration;
+using DAM.Application.Services.Interfaces;
+using System.Threading;
+using DAM.Domain.Entities;
+using static DAM.Application.PwoerBI.Requests.PowerBIRequest;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace DAM.Application.PwoerBI.Handlers
+{
+    public class GetApprovalLevelApproversTableRequestHandler : HandlerBase<GetApprovalLevelApproversTableRequest, HandlerResult<IEnumerable<ApprovalLevelApprover>>>//name need to match GetAssetTableRequest + Handler, than the HandlerBase need to match GetAssetTableRequest, and the HandlerResult need to match IEnumerable<Asset> which in ./Requests/PowerBIRequest.cs
+    {
+        private readonly IDbContext _dbcontext;
+        private readonly IConfiguration _configuration;
+        private readonly IAzureStorageService _azureStorageService;
+
+        public GetApprovalLevelApproversTableRequestHandler(IDbContext dbcontext, IConfiguration configuration, IAzureStorageService azureStorageService) //name is need to be same as this class name
+        {
+            _dbcontext = dbcontext ?? throw new ArgumentNullException(nameof(dbcontext));
+            _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
+            _azureStorageService = azureStorageService ?? throw new ArgumentNullException(nameof(azureStorageService));
+        }
+
+        public override HandlerResult<IEnumerable<ApprovalLevelApprover>> HandleRequest(GetApprovalLevelApproversTableRequest request, CancellationToken cancellationToken, HandlerResult<IEnumerable<ApprovalLevelApprover>> result)//HandlerResult type need to be same as the class line 13 there are two handleresults in this line both of them need to be same as, also the request need to be same as class line 13
+        {
+            var delta = _dbcontext.ApprovalLevelApprovers.ToList(); // get all data from table, the table name list is in \Simple DAM\src\DAM.Persistence\DAMDBContext.cs
+            result.Entity = delta;
+            result.ResultType = ResultType.Success;
+            return result;
+        }
+    }
+}

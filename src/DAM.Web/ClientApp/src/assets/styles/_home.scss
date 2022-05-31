@@ -1,0 +1,148 @@
+$card-text-color: #fff;
+
+.home-container {
+	height: 100%;
+}
+
+.home-pageheader {
+	min-height: 20vh;
+	width: 100%;
+	//box-shadow: 5px 0px 5px #000000;
+	background-color: #ffffff;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	font-size: 1.2rem;
+	padding: 20px;
+	align-content: center;
+}
+.title {
+	flex-wrap: wrap;
+	font-weight: bold;
+}
+.tagline {
+	flex-wrap: wrap;
+	font-weight: normal;
+}
+
+.home-card-area {
+	min-height: 65vh;
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-around;
+	a {
+		color: $card-text-color;
+		height: fit-content;
+		width: fit-content;
+		&:hover,
+		:hover {
+			color: $card-text-color;
+		}
+	}
+}
+.home-card {
+	width: 240px;
+	height: 250px;
+	display: flex;
+	flex-direction: column;
+	align-content: center;
+	justify-content: space-evenly;
+	align-items: center;
+	font-size: 1rem;
+	padding: 14px;
+	border-radius: 20px;
+	box-shadow: 14px 14px 20px rgba(0, 0, 0, 0.5);
+	border-top: 1px solid rgba(255, 255, 255, 0.5);
+	border-left: 1px solid rgba(255, 255, 255, 0.5);
+	margin: 20px;
+	transition: 0.3s ease-in-out;
+	.home-icons {
+		// transition: 0.4s ease-in-out;
+		svg {
+			transition: 0.5s ease-in-out;
+		}
+	}
+	.box-text {
+		transition: 0.3s;
+		font-weight: 500;
+		text-align: center;
+	}
+
+	&:hover {
+		.home-icons {
+			// transform: scale(1.25);
+		}
+		.box-text {
+			// font-size: 1.2rem;
+		}
+	}
+}
+
+.home-card.primary {
+	background-color: hsl(var(--primary-h), var(--primary-s), var(--primary-l));
+	.home-icons {
+		background: transparent;
+		svg {
+			color: $primary-btn-text;
+			z-index: 1;
+		}
+	}
+	&:hover {
+		transform: scale(1.1);
+		box-shadow: 14px 14px 50px rgba(0, 0, 0, 0.5);
+		svg {
+			filter: drop-shadow(8px 8px 5px rgba(0, 0, 0, 0.25));
+		}
+	}
+}
+
+@media screen and (max-width: 768px) {
+	.home-pageheader {
+		font-size: 0.8rem;
+	}
+}
+@media screen and (max-width: 1024px) {
+	.home-pageheader {
+		font-size: 1rem;
+	}
+}
+@media screen and (max-width: 1280px) {
+	.home-container {
+		height: fit-content;
+	}
+	.home-card-area {
+		height: fit-content;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: space-around;
+		a {
+			color: $card-text-color;
+			height: fit-content;
+			width: fit-content;
+			&:hover,
+			:hover {
+				color: $card-text-color;
+			}
+		}
+	}
+}
+@media screen and (max-width: 320px) {
+	.home-pageheader {
+		font-size: 0.6rem;
+	}
+}
+
+@keyframes pulse {
+	0%,
+	100% {
+		opacity: 1;
+	}
+	50% {
+		opacity: 0.5;
+	}
+}

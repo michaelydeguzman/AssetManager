@@ -1,0 +1,105 @@
+//custom buttons
+$ThemeColors: 'primary' $primary-btn $primary-btn-text $primary-btn-hover $primary-btn-hover-text,
+	'secondary' $secondary-btn $secondary-btn-text $secondary-btn-hover $secondary-btn-hover-text,
+	'secondary' $secondary-btn $secondary-btn-text $secondary-btn-hover $secondary-btn-hover-text,
+	'success' $success white rgba($success, 0.8) white, 'error' $danger $white rgba($danger, 0.8) white;
+
+@each $name, $btn, $btn-text, $btn-hover, $btn-hover-text in $ThemeColors {
+	button {
+		&.#{$name} {
+			&.ant-btn:not(.ant-btn-dangerous) {
+				&:active,
+				&:hover,
+				&:focus {
+					border-color: $btn;
+					color: $btn;
+				}
+
+				&.ant-btn-primary {
+					background: $btn;
+					color: $btn-text;
+					border-color: $btn;
+					&:active,
+					&:hover,
+					&:focus {
+						border-color: $btn-hover;
+						background: $btn-hover;
+						color: $btn-text;
+					}
+
+					&.ant-btn-background-ghost {
+						border-color: $btn;
+						color: $btn;
+						&:active,
+						&:hover,
+						&:focus {
+							border-color: $btn-hover;
+							color: $btn-hover;
+						}
+					}
+				}
+				&.ant-btn-text {
+					border-color: transparent;
+					color: rgba(0, 0, 0, 0.85);
+					&:active,
+					&:hover,
+					&:focus {
+						border-color: transparent;
+						color: rgba(0, 0, 0, 0.85);
+					}
+				}
+				&.ant-btn-link {
+					color: $btn;
+					background: transparent;
+					border-color: transparent;
+					&:active,
+					&:hover,
+					&:focus {
+						color: $btn-hover;
+						background: transparent;
+						border-color: transparent;
+					}
+				}
+				@include button-span-margin;
+			}
+		}
+	}
+}
+
+button.ant-btn.option-button {
+	box-shadow: none;
+	background: $option-btn;
+	color: $option-btn-text;
+	border-radius: 20px;
+	border-color: transparent;
+
+	&:hover,
+	&:focus {
+		border-color: transparent;
+		color: $option-btn-hover-text;
+		background: rgba(63, 63, 63, 0.08);
+		border-radius: 20px;
+	}
+}
+
+button.ant-btn.option-button {
+	box-shadow: none;
+	background: $option-btn;
+	color: $option-btn-text;
+	border-radius: 20px;
+	border-color: transparent;
+
+	&:hover,
+	&:focus {
+		border-color: transparent;
+		color: $option-btn-hover-text;
+		background: rgba(63, 63, 63, 0.08);
+		border-radius: 20px;
+	}
+}
+
+.extra-button {
+	padding: 0;
+	cursor: pointer;
+	font-size: 0.8rem;
+}

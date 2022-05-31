@@ -1,0 +1,66 @@
+name: BrandManagerCDPipeline
+stages:
+  - stage: Build
+    variables: 
+       BuildConfiguration: 'Release'
+    jobs:
+    - job: BuildJob 
+      steps:
+      - task: DotNetCoreCLI@2
+        displayName: Restore
+        inputs:
+          command: restore
+          projects: '**/*.sln'
+        enabled: false
+      - task: DotNetCoreCLI@2
+        displayName: Build
+        inputs:
+          projects: '**/*.sln'
+          arguments: '--configuration $(BuildConfiguration)'
+      - task: DotNetCoreCLI@2
+        displayName: Test
+        inputs:
+          command: test
+          projects: '**/*.sln'
+          arguments: '--configuration $(BuildConfiguration)'
+      - task: Npm@1
+        displayName: 'npm custom'
+        inputs:
+          command: custom
+          verbose: false
+          customCommand: test
+        enabled: false
+      - task: CopyFiles@2
+        displayName: Copy ARM Template
+        inputs: 
+          SourceFolder: '$(System.DefaultWorkingDirectory)/build/arm'
+          TargetFolder: '$(build.artifactstagingdirectory)/ArmTemplates'
+      - task: DotNetCoreCLI@2
+        displayName: Publish
+        inputs:
+          command: publish
+          publishWebProjects: false
+          projects: '**/*.sln'
+          arguments: '--configuration $(BuildConfiguration) --output $(build.artifactstagingdirectory)'
+          zipAfterPublish: True
+      - task: PublishBuildArtifacts@1
+        displayName: 'Publish Artifact'
+        inputs:
+          PathtoPublish: '$(build.artifactstagingdirectory)'
+          artifactName: 'drop'
+  - stage: 'Development'
+    jobs: 
+    - template: 'environment-jobs.yaml'
+      parameters:
+        environment: Development
+        azureSubscriptionName: 'Brand Manager SVC'
+        resourceGroupName: Development001
+        resourceBase: SP-DEV-AUS-BM
+  - stage: 'Quality_Assurance'
+    jobs: 
+    - template: 'environment-jobs.yaml'
+      parameters:
+        environment: Quality_Assurance
+        azureSubscriptionName: 'Brand Manager QA SVC'
+        resourceGroupName: QA001
+        resourceBase: SP-QA-AUS-BM

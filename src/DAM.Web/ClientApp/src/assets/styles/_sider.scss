@@ -1,0 +1,95 @@
+aside.sider {
+	margin-top: 60px;
+	height: 100vh;
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	z-index: 2;
+	.ant-menu {
+		height: 100%;
+
+		.ant-menu-submenu {
+			.ant-menu-item {
+				margin: 0;
+			}
+
+			.ant-menu-submenu-title {
+				font-weight: bold;
+				color: $default-sub-menu;
+				// text-transform: uppercase;
+			}
+		}
+
+		.ant-menu-submenu-open {
+			.ant-menu-submenu-title {
+				font-weight: bold;
+				color: $default-sub-menu;
+				// text-transform: uppercase;
+			}
+		}
+
+		.menu-icon {
+			opacity: 0.3;
+			font-size: 1.2rem;
+		}
+	}
+
+	.ant-menu-inline-collapsed .menu-icon {
+		opacity: 1;
+	}
+
+	li.ant-menu-item:hover,
+	.ant-menu-submenu-title:hover {
+		background-color: #f0f0f0;
+	}
+
+	.ant-menu-submenu-arrow::before,
+	.ant-menu-submenu-arrow::after {
+		background: $default-sub-menu !important;
+	}
+
+	.drawer-open-icon,
+	.drawer-close-icon,
+	.dots-icon {
+		color: $secondary;
+		font-size: 2.5rem;
+		cursor: pointer;
+		padding: 7px;
+		border-radius: 50%;
+
+		&:hover,
+		&:focus {
+			background-color: #ece6e60a;
+		}
+	}
+
+	.ant-layout-sider-trigger {
+		border-right: 1px solid #f0f0f0;
+	}
+
+	.ant-menu-item {
+		&.ant-menu-item-active,
+		&.ant-menu-item-selected {
+			// color: $secondary;
+			// background-color: rgba($secondary, 0.1);
+			span {
+				a,
+				a:hover {
+					// color: $secondary;
+				}
+			}
+		}
+	}
+	.ant-menu-vertical .ant-menu-item::after,
+	.ant-menu-vertical-left .ant-menu-item::after,
+	.ant-menu-vertical-right .ant-menu-item::after,
+	.ant-menu-inline .ant-menu-item::after {
+		border-right: 3px solid $secondary;
+	}
+}
+
+.pinned_folder_title {
+	.ant-menu-submenu-title {
+		font-weight: normal !important;
+	}
+}

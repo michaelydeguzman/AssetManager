@@ -1,0 +1,64 @@
+﻿.ant-tag-has-color.project-status-tag {
+    text-align: center !important;
+    width: 100%;
+}
+
+.ant-tag.project-asset-type {
+    text-align: center !important;
+    width: 80px !important;
+    background-color: $primary !important;
+    color: white;
+}
+
+.project-list-row {
+    width: 100%;
+}
+
+.project-list-row.bottom {
+    margin-top: 20px;
+}
+
+.project-action-btn-span {
+   margin-top: 2px;
+}
+
+.project-comment-list {
+    width: 100%;
+
+    .scrollable-list{
+        max-height: 22vh;
+        overflow: auto;
+    }
+}
+
+.project-comment-list-long {
+    width: 100%;
+
+    .scrollable-list {
+        max-height: 50vh;
+        overflow: auto;
+    }
+}
+
+.margin-top-8 {
+   margin-top: 8px;
+}
+
+.margin-bottom-8 {
+    margin-bottom: 8px;
+   
+}
+
+.import-to-project-ls{
+    max-height: 50vh;
+    overflow: auto;
+}
+
+.project-asset-switch.ant-switch {
+    background-color: $secondary !important;
+}
+
+.margin-top-minus-8 {
+    margin-top: -8px;
+}
+

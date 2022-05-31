@@ -1,0 +1,28 @@
+GenerateApiKey
+
+public string GenerateApiKey ( string environmentNameOrURL, string userName, string password );
+
+environmentNameOrURL
+
+string
+
+The identifier for the environment in which to log in
+
+This can be:
+
+the name of the environment
+one of the values entered in the URLs setting of the environment
+the full URL to the backoffice (eg: http://www.domain.com/CHILI/ENVIRONMENT_NAME/interface.aspx )
+userName
+
+string
+
+The user to log in with.
+This user needs to exist in the specified environment.
+
+password
+
+string
+
+The user's password.
+This can be provided as a MD5 encoded string (which of course is the preferred method)

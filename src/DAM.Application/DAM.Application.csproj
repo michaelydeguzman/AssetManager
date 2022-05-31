@@ -1,0 +1,38 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="9.0.0" />
+    <PackageReference Include="Azure.Storage.Blobs" Version="12.6.0" />
+    <PackageReference Include="Crc32.NET" Version="1.2.0" />
+    <PackageReference Include="FreeSpire.Office" Version="4.3.1" />
+    <PackageReference Include="LazZiya.ImageResize" Version="4.1.0" />
+    <PackageReference Include="Magick.NET-Q8-AnyCPU" Version="8.3.3" />
+    <PackageReference Include="MediatR" Version="7.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Authorization" Version="3.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.1" />
+    <PackageReference Include="Microsoft.Azure.CognitiveServices.Vision.ComputerVision" Version="7.0.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="4.7.0" />
+    <PackageReference Include="System.Drawing.Common" Version="5.0.0" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.8.0" />
+    <PackageReference Include="Z.EntityFramework.Plus.EFCore" Version="3.0.64" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DAM.Domain\DAM.Domain.csproj" />
+    <ProjectReference Include="..\DAM.Persistence\DAM.Persistence.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Assets\PipelineBehaviors\" />
+    <Folder Include="Company\Enums\" />
+    <Folder Include="Users\Enums\" />
+  </ItemGroup>
+
+</Project>

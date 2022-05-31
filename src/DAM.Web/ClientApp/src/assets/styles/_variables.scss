@@ -1,0 +1,109 @@
+//brand colours
+$black: #000;
+$blue: #0d6efd;
+$indigo: #6610f2;
+$purple: #6f42c1;
+$pink: #d63384;
+$red: #dc3545;
+$orange: #fd7e14;
+$yellow: #ffc107;
+$green: #198754;
+$teal: #20c997;
+$cyan: #0dcaf0;
+$white: #fff;
+$gray: #6c757d;
+$gray-dark: #343a40;
+
+$success: #198754;
+$info: #0dcaf0;
+$warning: #ffc107;
+$danger: #dc3545;
+
+$light: #f8f9fa;
+$dark: #212529;
+
+// primary-10	hsl(217deg 100% 20%)	-35		// 5%
+// primary-9	hsl(215deg 100% 27%)	-28		// 15%
+// primary-8	hsl(213deg 100% 35%)	-20		// 25%
+// primary-7	hsl(211deg 92%	44%)	-11		// 35% --
+// primary-6	hsl(209deg 100% 55%)	0		// 45% --
+// primary-5	hsl(207deg 100% 63%)	8		// 55% --
+// primary-4	hsl(205deg 100% 71%)	16		// 65%
+// primary-3	hsl(203deg 100% 78%)	23		// 75%
+// primary-2	hsl(201deg 100% 86%)	31		// 85%
+// primary-1	hsl(199deg 100% 95%)	40		// 95% --
+
+$primary: hsl(var(--primary-h), var(--primary-s), var(--primary-l)); // #1890ff 55% (primary-6)
+
+$primary-7: hsl(var(--primary-h), var(--primary-s), calc(var(--primary-l) - 11%)); // #096dd7 44% (click)
+$primary-5: hsl(var(--primary-h), var(--primary-s), calc(var(--primary-l) + 8%)); // #40a9ff 63% (hover)
+$primary-1: hsl(var(--primary-h), var(--primary-s), calc(var(--primary-l) + 40%)); // #e6f7ff 95% (selected background)
+$primary-outline: hsla(var(--primary-h), var(--primary-s), var(--primary-l), 0.2); // #1a90ff33 55% (outline)
+
+$secondary: hsl(var(--secondary-h), var(--secondary-s), var(--secondary-l)); // #58547d;
+
+$secondary-7: hsl(var(--secondary-h), var(--secondary-s), calc(var(--secondary-l) - 11%)); // (click)
+$secondary-5: hsl(var(--secondary-h), var(--secondary-s), calc(var(--secondary-l) + 8%)); // (hover)
+$secondary-1: hsl(var(--secondary-h), var(--secondary-s), calc(var(--secondary-l) + 40%)); // (selected background)
+$secondary-outline: hsla(var(--secondary-h), var(--secondary-s), var(--secondary-l), 0.2); // (outline)
+
+$tertiary: hsl(var(--tertiary-h), var(--tertiary-s), var(--tertiary-l)); // #00aa55;
+
+$tertiary-7: hsl(var(--tertiary-h), var(--tertiary-s), calc(var(--tertiary-l) - 11%)); // (click)
+$tertiary-5: hsl(var(--tertiary-h), var(--tertiary-s), calc(var(--tertiary-l) + 8%)); // (hover)
+$tertiary-1: hsl(var(--tertiary-h), var(--tertiary-s), calc(var(--tertiary-l) + 40%)); // (selected background)
+$tertiary-outline: hsla(var(--tertiary-h), var(--tertiary-s), var(--tertiary-l), 0.2); // (outline)
+
+$secondary-light: $secondary-1; //lighten($primary, 40);
+
+$default-sub-menu: $primary;
+$default-icon: $tertiary;
+
+$header-color: $primary;
+$header-texts: white;
+
+$logincontainer-color: $primary;
+$logincontainer-texts: white;
+
+$primary-btn: $primary;
+$primary-btn-text: white;
+$primary-btn-hover: hsl(var(--primary-h), var(--primary-s), 35%);
+$primary-btn-hover-text: white;
+
+$secondary-btn: hsl(var(--secondary-h), var(--secondary-s), var(--secondary-l));
+$secondary-btn-text: white;
+$secondary-btn-hover: hsl(var(--secondary-h), var(--secondary-s), 35%);
+$secondary-btn-hover-text: white;
+
+$tertiary-btn: hsl(var(--tertiary-h), var(--tertiary-s), var(--tertiary-l));
+$tertiary-btn-text: white;
+$tertiary-btn-hover: hsl(var(--tertiary-h), var(--tertiary-s), 35%); //var(--tertiary-color-hover);
+$tertiary-btn-hover-text: white;
+
+$option-btn: rgba(0, 0, 0, 0);
+$option-btn-text: $primary;
+$option-btn-hover: hsla(var(--primary-h), var(--primary-s), var(--primary-l), 0.078);
+$option-btn-hover-text: $primary;
+
+$colors: 'black' $black $white, 'blue' $blue $white, 'indigo' $indigo $white, 'purple' $purple $white,
+	'pink' $pink $white, 'red' $red $white, 'orange' $orange $white, 'yellow' $yellow $black, 'green' $green $white,
+	'teal' $teal $black, 'cyan' $cyan $black, 'white' $white $black, 'gray' $gray $white, 'gray-dark' $gray-dark $white,
+	'success' $success $white, 'info' $info $black, 'warning' $warning $black, 'danger' $danger $white,
+	'light' $light $black, 'dark' $dark $white;
+
+@each $name, $main-color, $alt-color in $colors {
+	&.color-pill-#{$name} {
+		background-color: $main-color;
+		color: $white;
+		svg {
+			color: rgba($white, 0.6);
+		}
+	}
+
+	&.color-#{$name} {
+		color: $main-color;
+		svg {
+			color: rgba($main-color, 0.6);
+		}
+	}
+}

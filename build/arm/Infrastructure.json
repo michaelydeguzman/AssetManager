@@ -1,0 +1,287 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "envPrefix": {
+      "type": "string"
+    },
+    "rgname": {
+      "type": "string"
+    },
+    "SqlPassword": {
+      "type": "string"
+    },
+    "Performance": {
+      "defaultValue": "small",
+      "type": "string",
+      "allowedValues": [
+        "small",
+        "medium",
+        "large"
+      ]
+    }
+  },
+  "variables": {
+    "groupName": "parameters('rgname')",
+    "redisName": "[concat(parameters('envPrefix'), '-redis')]",
+    "applicationInsightsName": "[concat(parameters('envPrefix'),'-ai')]",
+    "Location": "Australia Southeast",
+    "tags": {
+      "Project": "BrandManager"
+    },
+    "webName": "[concat(parameters('envPrefix'),'-web')]", 
+    "sqlServerName": "[concat(parameters('envPrefix'),'-sql')]",
+    "sqlDatabaseName": "[concat(parameters('envPrefix'),'-db')]",
+    "elasticPoolName": "[concat(parameters('envPrefix'),'-ep')]",
+    "servicePlanName": "[concat(parameters('envPrefix'),'-sp')]",
+    "performanceSettings": {
+      "ServerFarm": {
+        "sku": "[if(contains(parameters('Performance'),'small'),'F1','')]"
+      },
+      "SqlServer": {
+        "tier": "S0",
+        "capacity": "Standard",
+        "elasticPool": {
+          "name": "BasicPool",
+          "tier": "Basic",
+          "capacity": "50",
+          "maxSizeBytes": "5242880000"
+        },
+        "perDatabase": {
+          "min": "0",
+          "max": "5"
+        }
+      }
+    }
+  },
+  "resources": [
+    {
+      "type": "Microsoft.Cache/Redis",
+      "apiVersion": "2018-03-01",
+      "name": "[variables('redisName')]",
+      "location": "[variables('Location')]",
+      "properties": {
+        "sku": {
+          "name": "Basic",
+          "family": "C",
+          "capacity": 0
+        },
+        "enableNonSslPort": true,
+        "redisConfiguration": {
+          "maxclients": "256",
+          "maxmemory-reserved": "0",
+          "maxfragmentationmemory-reserved": "0",
+          "maxmemory-policy": "volatile-lru",
+          "maxmemory-delta": "0"
+        }
+      }
+    },
+    {
+      "type": "microsoft.insights/components",
+      "apiVersion": "2015-05-01",
+      "name": "[variables('applicationInsightsName')]",
+      "location": "[variables('Location')]",
+      "tags": "[variables('tags')]",
+      "properties": {
+        "Application_Type": "web",
+        "Flow_Type": "Redfield",
+        "Request_Source": "IbizaAIExtension"
+      }
+    },
+    {
+      "type": "Microsoft.Web/serverfarms",
+      "apiVersion": "2015-05-01",
+      "name": "[variables('servicePlanName')]",
+      "location": "[variables('Location')]",
+      "tags": "[variables('tags')]",
+      "dependsOn": [],
+      "sku": {
+        "name": "[variables('performanceSettings').ServerFarm.sku]"
+      },
+      "kind": "app",
+      "properties": {
+        "name": "[variables('servicePlanName')]",
+        "perSiteScaling": false,
+        "reserved": false,
+        "targetWorkerCount": 0,
+        "targetWorkerSizeId": 0
+      }
+    },
+    {
+      "type": "Microsoft.Sql/servers",
+      "tags": "[variables('tags')]",
+      "apiVersion": "2015-05-01-preview",
+      "name": "[variables('sqlServerName')]",
+      "location": "[variables('Location')]",
+      "properties": {
+        "administratorLogin": "sqlAdmin",
+        "administratorLoginPassword": "[parameters('SqlPassword')]"
+      },
+      "resources": [
+        {
+          "type": "Microsoft.Sql/servers/firewallRules",
+          "apiVersion": "2015-05-01-preview",
+          "name": "[concat(variables('sqlServerName'), '/AllowAllWindowsAzureIps')]",
+          "dependsOn": [
+            "[resourceId('Microsoft.Sql/servers', variables('sqlServerName'))]"
+          ],
+          "properties": {
+            "startIpAddress": "0.0.0.0",
+            "endIpAddress": "0.0.0.0"
+          }
+        },
+        {
+          "apiVersion": "2017-10-01-preview",
+          "type": "Microsoft.Sql/servers/elasticpools",
+          "location": "[variables('Location')]",
+          "name": "[concat(variables('sqlServerName'), '/', variables('elasticPoolName'))]",
+          "sku": {
+            "name": "[variables('performanceSettings').SqlServer.elasticPool.name]",
+            "tier": "[variables('performanceSettings').SqlServer.elasticPool.tier]",
+            "capacity": "[variables('performanceSettings').SqlServer.elasticPool.capacity]"
+          },
+          "properties": {
+            "perDatabaseSettings": {
+              "minCapacity": "[variables('performanceSettings').SqlServer.perDatabase.min]",
+              "maxCapacity": "[variables('performanceSettings').SqlServer.perDatabase.max]"
+            },
+            "zoneRedundant": "false",
+            "licenseType": "",
+            "maxSizeBytes": "[variables('performanceSettings').SqlServer.elasticPool.maxSizeBytes]"
+          },
+          "dependsOn": [
+            "[concat('Microsoft.Sql/servers/', variables('sqlServerName'))]"
+          ]
+        },
+        {
+          "apiVersion": "2017-10-01-preview",
+          "type": "databases",
+          "location": "[variables('Location')]",
+          "name": "[variables('sqlDatabaseName')]",
+          "tags": "[variables('tags')]",
+          "properties": {
+            "collation": "SQL_Latin1_General_CP1_CI_AS",
+            "elasticPoolId": "[resourceId('Microsoft.Sql/servers/elasticpools', variables('sqlServerName') , variables('elasticPoolName'))]",
+            "sampleName": "",
+            "zoneRedundant": "false",
+            "licenseType": ""
+          },
+          "dependsOn": [
+            "[concat('Microsoft.Sql/servers/', variables('sqlServerName'))]",
+            "[concat('Microsoft.Sql/servers/', variables('sqlServerName'), '/elasticpools/', variables('elasticPoolName'))]"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "Microsoft.Web/sites",
+      "apiVersion": "2018-02-01",
+      "name": "[variables('webName')]",
+      "location": "[variables('Location')]",
+      "kind": "app",
+      "tags": "[variables('tags')]",
+      "identity": {
+        "type": "SystemAssigned"
+      },
+      "properties": {
+        "name": "[variables('webName')]",
+        "siteConfig": {
+          "appSettings": [
+            {
+              "name": "redisAddress",
+              "value": "[concat(variables('redisName'),'.redis.cache.windows.net,abortConnect=false,ssl=true,password=', listKeys(resourceId('Microsoft.Cache/Redis', variables('redisName')), '2015-08-01').primaryKey)]"
+            },
+            {
+              "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
+              "value": "[reference(resourceId('microsoft.insights/components', variables('applicationInsightsName')),'2018-05-01-preview','Full').properties.InstrumentationKey]"
+            },
+            {
+              "name": "ApplicationInsightsAgent_EXTENSION_VERSION",
+              "value": "~2"
+            },
+            {
+              "name": "XDT_MicrosoftApplicationInsights_Mode",
+              "value": "default"
+            },
+            {
+              "name": "DiagnosticServices_EXTENSION_VERSION",
+              "value": "disabled"
+            },
+            {
+              "name": "APPINSIGHTS_PROFILERFEATURE_VERSION",
+              "value": "disabled"
+            },
+            {
+              "name": "APPINSIGHTS_SNAPSHOTFEATURE_VERSION",
+              "value": "disabled"
+            },
+            {
+              "name": "InstrumentationEngine_EXTENSION_VERSION",
+              "value": "disabled"
+            },
+            {
+              "name": "SnapshotDebugger_EXTENSION_VERSION",
+              "value": "disabled"
+            },
+            {
+              "name": "XDT_MicrosoftApplicationInsights_BaseExtensions",
+              "value": "disabled"
+            }
+          ],
+          "connectionStrings": [
+            {
+              "name": "BrandManagerDBConnectionString",
+              "connectionString": "[concat('Server=tcp:',reference(variables('sqlserverName')).fullyQualifiedDomainName,',1433;Initial Catalog=',variables('sqlDatabaseName'),';Persist Security Info=False;User ID=',reference(variables('sqlserverName')).administratorLogin,';Password=',parameters('SqlPassword'),';MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;')]",
+              "type": "string"
+            }
+          ],
+          "metadata": [
+            {
+              "name": "CURRENT_STACK",
+              "value": "dotnetcore"
+            }
+          ],
+          "alwaysOn": "false"
+        },
+        "serverFarmId": "[concat(subscription().id,'/resourceGroups/',parameters('rgname'),'/providers/Microsoft.Web/serverfarms/',variables('servicePlanName'))]",
+        "clientAffinityEnabled": false,
+        "dependsOn": [
+          "[resourceId('microsoft.insights/components', variables('applicationInsightsName'))]",
+          "[resourceId('Microsoft.Web/serverfarms', variables('servicePlanName'))]"
+        ]
+      }
+    },
+    {
+      "type": "Microsoft.Web/sites/config",
+      "apiVersion": "2016-08-01",
+      "name": "[concat(variables('webName'), '/web')]",
+      "location": "[variables('Location')]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Web/sites', variables('webName'))]",
+        "[resourceId('Microsoft.Web/serverfarms', variables('servicePlanName'))]",
+        "[resourceId('microsoft.insights/components', variables('applicationInsightsName'))]"
+      ],
+      "properties": {
+        "cors": {
+          "allowedOrigins": [
+            "*"
+          ]
+        }
+      }
+    }
+  ],
+  "outputs": {
+    "applicationInsightsId": {
+      "type": "string",
+      "value": "[reference(resourceId('microsoft.insights/components', variables('applicationInsightsName')),'2018-05-01-preview','Full').properties.InstrumentationKey]"
+    },
+    "webName": {
+      "type": "string",
+      "value": "[variables('webName')]"
+    },
+    "webUrl": {
+      "type": "string",
+      "value": "[concat('https://',reference(resourceId('Microsoft.Web/sites', variables('webName')),'2018-11-01','Full').properties.hostNames[0])]"
+    }
+  }
+}
