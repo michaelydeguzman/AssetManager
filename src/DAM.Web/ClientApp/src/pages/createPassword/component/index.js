@@ -89,7 +89,7 @@ function CreatePassword(props) {
 				</Card>
 			</Col>
 			<Col className="login-footer">
-				&#169; 2021 <a href="https://simple.io/">Simple</a>. All Rights Reserved.
+				&#169; 2022. All Rights Reserved.
 			</Col>
 		</Row>
 	);

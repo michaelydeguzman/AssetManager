@@ -275,3 +275,4 @@ src/DAM.Web.Authorization/obj/DAM.Web.Authorization.csproj.nuget.g.props
 src/DAM.Web.Authorization/obj/DAM.Web.Authorization.csproj.nuget.g.targets
 src/DAM.Web.Authorization/obj/project.assets.json
 src/DAM.Web.Authorization/obj/project.nuget.cache
+src/.vs/Simple_DAM/DesignTimeBuild/.dtbcache.v2

@@ -25,7 +25,7 @@ namespace DAM.Application.PwoerBI.Handlers
 
         public override HandlerResult<IEnumerable<ApprovalLevelApprover>> HandleRequest(GetApprovalLevelApproversTableRequest request, CancellationToken cancellationToken, HandlerResult<IEnumerable<ApprovalLevelApprover>> result)//HandlerResult type need to be same as the class line 13 there are two handleresults in this line both of them need to be same as, also the request need to be same as class line 13
         {
-            var delta = _dbcontext.ApprovalLevelApprovers.ToList(); // get all data from table, the table name list is in \Simple DAM\src\DAM.Persistence\DAMDBContext.cs
+            var delta = _dbcontext.ApprovalLevelApprovers.ToList(); 
             result.Entity = delta;
             result.ResultType = ResultType.Success;
             return result;

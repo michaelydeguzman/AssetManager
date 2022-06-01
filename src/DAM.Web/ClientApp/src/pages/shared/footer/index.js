@@ -8,11 +8,11 @@ export default function Footer() {
 			<Row type="flex" justify="center" align="middle">
 				<Col xs={15} md={15} align="center">
 					<Typography.Text>
-						&#169; 2021 <a href="https://simple.io/">Simple</a>. All Rights Reserved.
+						&#169; 2022. All Rights Reserved.
 					</Typography.Text>
 				</Col>
 				<Col align="center">
-					<Link to="/ContactUs">
+					<Link to="">
 						<Button className="contact-us">Contact us</Button>
 					</Link>
 				</Col>
