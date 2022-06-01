@@ -308,3 +308,4 @@ src/DAM.Application.Users/obj/Debug/netcoreapp3.1/DAM.Application.Users.csproj.F
 src/DAM.Application.Users/obj/Debug/netcoreapp3.1/DAM.Application.Users.dll
 src/DAM.Application.Users/obj/Debug/netcoreapp3.1/DAM.Application.Users.GeneratedMSBuildEditorConfig.editorconfig
 src/DAM.Application.Users/obj/Debug/netcoreapp3.1/DAM.Application.Users.pdb
+src/DAM.Application.Tests/obj/Debug/netcoreapp3.1/DAM.Application.Tests.csproj.CopyComplete
